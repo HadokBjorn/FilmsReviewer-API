@@ -17,7 +17,7 @@ export function notFoundError(item?:string) {
       message: `${item ? item : ""} Access Unauthorized!`
     }
   }
-  export function UnprocessableEntityError(item?:string[]) {
+  export function UnprocessableEntityError(item?:string[]|string) {
     return {
       type: "UnprocessableEntity",
       message: item ? item : "Unprocessable Entity!"
