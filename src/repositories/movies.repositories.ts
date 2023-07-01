@@ -47,8 +47,8 @@ function createMovieDB(body:Movie) {
     ]);
 }
 
-function getMoviesDB(){
-    return db.query(`SELECT * FROM movies;`);
+function getUserMoviesDB(id:number){
+    return db.query(`SELECT * FROM movies WHERE user_id=$1;`,[id]);
 }
 
 function deleteMovieDB(id:number, userId:number) {
@@ -57,7 +57,7 @@ function deleteMovieDB(id:number, userId:number) {
 
 const moviesRepository = {
     createMovieDB,
-    getMoviesDB,
+    getUserMoviesDB,
     deleteMovieDB,
 }
 

@@ -20,7 +20,8 @@ async function createMovie(req: Request, res:Response) {
 }
 
 async function getMovies(req: Request, res:Response) {
-	const movies = await moviesRepository.getMoviesDB();
+	const userId:number = res.locals.user.id;
+	const movies = await moviesRepository.getUserMoviesDB(userId);
 	if(movies.rowCount===0) throw errorCase.notFoundError("Movies")
 	res.status(httpStatus.OK).send(movies.rows);
 }

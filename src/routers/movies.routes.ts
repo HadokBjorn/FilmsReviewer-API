@@ -7,6 +7,6 @@ import { Router } from "express";
 const movieRouters = Router();
 
 movieRouters.post("/movies", validateSchema(movieSchema),authorization, movieControllers.createMovie)
-movieRouters.get("/movies", movieControllers.getMovies)
+movieRouters.get("/movies",authorization, movieControllers.getMovies)
 
 export default movieRouters;
