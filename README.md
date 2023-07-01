@@ -24,6 +24,7 @@ Espera receber um body do tipo:
 ```js
 {
     username: "meu_username",//string
+    image: "http://example.com/image.png", //string no formato url
     email:"meu_email@email.com",//string com formato de email
     password:"minha_senha"//string com no minimo 6 caracteres
 }
@@ -53,7 +54,9 @@ Em caso de sucesso receberá status 200 ok e uma resposta do tipo:
 
   "token": "eyJhbGckshdfsdfsdiOiJIUzI1NiIsInçdfçlsdjdf787dfdsfsfdss", //string
 
-  "username": "meu username" //string
+  "username": "meu username", //string
+
+  "image": "http://example.com/image.png", //string no formato url
 
 }
 ```
