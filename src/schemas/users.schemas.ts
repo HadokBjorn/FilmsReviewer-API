@@ -3,6 +3,7 @@ import joi from "joi"
 
 export const signupSchema = joi.object<User>({
 	username: joi.string().min(3).required(),
+	image: joi.string().uri().required(),
 	email: joi
 		.string()
 		.email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "br"] } })

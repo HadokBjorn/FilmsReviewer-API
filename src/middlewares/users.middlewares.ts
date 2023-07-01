@@ -19,12 +19,12 @@ export async function validateLogin(req:Request, res:Response, next: NextFunctio
 
     if (!correctPassword) throw errorCase.unauthorizedError("Email or password invalid.");
 
-    const { id, username} = user.rows[0];
+    const { id, username, image} = user.rows[0];
     const oneHour = 3600; //one hour in seconds
     const token = jwt.sign({ id, username }, process.env.SECRET_KEY, { expiresIn: oneHour });
     await usersRepositories.deleteExpiredSessionDB(id, token);
 
-    res.locals.infos = { id, token, username };
+    res.locals.infos = { id, token, username, image };
     
     next();
 }

@@ -2,9 +2,10 @@ import { Session, User } from "@/types/users.types"
 import { db } from "@/database/database.connections";
 
 function createUserDB(body:User) {
-	const { username, email, hash } = body;
-	return db.query(`INSERT INTO users (username, email, password) VALUES ($1,$2,$3)`, [
+	const { username, image, email, hash } = body;
+	return db.query(`INSERT INTO users (username,image, email, password) VALUES ($1,$2,$3,$4)`, [
 		username,
+		image,
 		email,
 		hash,
 	]);
