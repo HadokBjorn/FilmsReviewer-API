@@ -101,7 +101,7 @@ const config = {headers: {Authorization: `Bearer ${token}`}}
 Usando o ```axios``` por exemplo você fará o GET no front da seguinte forma:
 
 ```js
-axios.post(URL, config)
+axios.get(URL, config)
 ```
 
 Em caso de sucesso receberá status 200 ok e uma resposta do tipo:
