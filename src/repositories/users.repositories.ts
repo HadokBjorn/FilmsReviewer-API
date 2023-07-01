@@ -33,9 +33,7 @@ function userLoggedDB(id:number, token:string) {
 		[description, Number(id), Number(userId)]
 	);
 } */
-function deleteMovieDB(id:number, userId:number) {
-	return db.query(`DELETE FROM posts WHERE id=$1 AND user_id=$2;`, [id, userId]);
-}
+
 
 const userRepositories = {
     createUserDB,
@@ -43,6 +41,5 @@ const userRepositories = {
     getUserByEmailDB,
     deleteExpiredSessionDB,
     userLoggedDB,
-    deleteMovieDB,
 }
 export default userRepositories;
