@@ -18,12 +18,14 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/pg": "^8.10.2",
     "nodemon": "^2.0.22",
+    "prisma": "^4.16.2",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.6",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@prisma/client": "^4.16.2",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dayjs": "^1.11.8",

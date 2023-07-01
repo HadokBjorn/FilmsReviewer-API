@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  username    String
+  image String
+  password String
+  sessions Session[]
+  movies Movie[]
+  comments Comment[]
+  ratings Rating[]
+  @@map("users")
+}
+
+model Session {
+  id      Int      @id @default(autoincrement())
+  token    String
+  user    User     @relation(fields: [user_id], references: [id])
+  user_id Int
+  @@map("sessions")
+}
+
+model Movie {
+	id      Int      @id @default(autoincrement())
+	user    User     @relation(fields: [user_id], references: [id])
+  user_id Int
+	title String
+	synopsis String
+	date DateTime
+	genre String
+	poster String
+	watched Boolean @default(false)
+  comments Comment[]
+  ratings Rating[]
+  @@map("movies")
+}
+
+model Comment {
+	id Int @id @default(autoincrement())
+  movie Movie @relation(fields: [movie_id],references: [id])
+	movie_id Int
+  user User @relation(fields: [user_id],references: [id])
+	user_id Int
+	comment String
+  @@map("comments")
+}
+
+model Rating {
+	id Int @id @default(autoincrement())
+	movie Movie @relation(fields: [movie_id],references: [id])
+	movie_id Int
+  user User @relation(fields: [user_id],references: [id])
+	user_id Int
+	like Boolean @default(false)
+	unlike Boolean @default(false)
+  @@map("ratings")
+}
