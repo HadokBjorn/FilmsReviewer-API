@@ -88,7 +88,7 @@ axios.post(URL, body, config)
 
 Em caso de sucesso receberá status 201 created.
 
-# Rota para obter filmes adicionados pelo usário: 
+# Rota para obter filmes adicionados pelo usuário: 
 
 ### GET: ```https://filmsreviewer-api.onrender.com/movies```
 
