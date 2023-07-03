@@ -15,7 +15,7 @@ export default function errorHandler(error:Error, req:Request, res:Response, nex
   if (error.type === "UnauthorizedError") {
     return res.status(httpStatus.UNAUTHORIZED).send(error.message);
   }
-  if (error.type === "UnprocessableEntity") {
+  if (error.type === "UnprocessableEntityError") {
     return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(error.message);
   }
 

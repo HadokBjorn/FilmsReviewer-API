@@ -10,18 +10,17 @@ async function createMovie(req: Request, res:Response) {
 	const body = req.body as Movie;
 	body.date = convertDate(req.body.date)
 	body.userId = userId;
-	
-	const movieCreated = await moviesRepository.createMovieDB(body)
-	
-	if (!movieCreated) throw errorCase.UnprocessableEntityError("Sorry, you can't create a film :(")
-
-	res.sendStatus(httpStatus.CREATED)
+	try{
+		await moviesRepository.createMovieDB(body)
+		res.sendStatus(httpStatus.CREATED)
+	}catch (error) {
+		if (error.code === '23505' && error.constraint === 'movies_title_key') return res.status(httpStatus.CONFLICT).send('O título do filme já existe.');
+	}
 
 }
 
 async function getMovies(req: Request, res:Response) {
-	const userId:number = res.locals.user.id;
-	const movies = await moviesRepository.getUserMoviesDB(userId);
+	const movies = await moviesRepository.getUserMoviesDB();
 	res.status(httpStatus.OK).send(movies.rows);
 }
 

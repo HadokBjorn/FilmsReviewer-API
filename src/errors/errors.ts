@@ -19,7 +19,7 @@ export function notFoundError(item?:string) {
   }
   export function UnprocessableEntityError(item?:string[]|string) {
     return {
-      type: "UnprocessableEntity",
+      type: "UnprocessableEntityError",
       message: item ? item : "Unprocessable Entity!"
     }
   }
