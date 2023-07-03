@@ -47,8 +47,8 @@ function createMovieDB(body:Movie) {
     ]);
 }
 
-function getUserMoviesDB(id:number){
-    return db.query(`SELECT * FROM movies WHERE user_id=$1;`,[id]);
+function getUserMoviesDB(){
+    return db.query(`SELECT * FROM movies;`);
 }
 
 function deleteMovieDB(id:number, userId:number) {
