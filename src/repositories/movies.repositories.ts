@@ -1,58 +1,28 @@
-import { db } from "@/database/database.connections";
-import { Movie } from "@/types/users.types";
+import prisma from "@/database/database.connections";
+import { Movie } from "@prisma/client";
 
-function createMovieDB(body:Movie) {
-    const {
-        userId,
-		title,
-		synopsis,
-		date,
-		genre,
-		poster,
-		watched
-    } = body;
+type CreateMovie = Omit<Movie,"id">
 
-    let query:string = `INSERT INTO movies (user_id,title,synopsis,date,genre,poster) 
-    VALUES ($1,$2,$3,$4,$5,$6)`;
 
-    if(watched !== undefined){
-        query = `INSERT INTO movies (
-            user_id,
-            title,
-            synopsis,
-            date,
-            genre,
-            poster,
-            watched
-            ) VALUES ($1,$2,$3,$4,$5,$6,$7)`
-
-        return db.query(query, [
-                userId,
-                title,
-                synopsis,
-                date,
-                genre,
-                poster,
-                watched
-            ]);
-    }
-
-    return db.query(query, [
-        userId,
-        title,
-        synopsis,
-        date,
-        genre,
-        poster
-    ]);
+function createMovieDB(body:CreateMovie) {
+    return prisma.movie.create({
+        data:body
+    })
 }
 
 function getUserMoviesDB(){
-    return db.query(`SELECT * FROM movies;`);
+    return prisma.movie.findMany()
 }
 
 function deleteMovieDB(id:number, userId:number) {
-	return db.query(`DELETE FROM movies WHERE id=$1 AND user_id=$2;`, [id, userId]);
+	return prisma.movie.deleteMany({
+        where:{
+            AND: [
+                {id},
+                {user_id: userId}
+            ]
+        }
+    })
 }
 
 const moviesRepository = {
