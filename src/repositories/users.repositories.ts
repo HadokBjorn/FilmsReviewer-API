@@ -1,28 +1,40 @@
-import { Session, User } from "@/types/users.types"
-import { db } from "@/database/database.connections";
+import prisma from "@/database/database.connections";
+import { User, Session } from "@prisma/client";
 
-function createUserDB(body:User) {
-	const { username, image, email, hash } = body;
-	return db.query(`INSERT INTO users (username,image, email, password) VALUES ($1,$2,$3,$4)`, [
-		username,
-		image,
-		email,
-		hash,
-	]);
+type CreateUser = Omit<User,"id">
+type CreateSession = Omit<Session,"id">
+
+function createUserDB(body:CreateUser) {
+	return prisma.user.create({
+		data: body
+	})
 }
 
-function createSessionDB(body:Session) {
-	const { id, token } = body;
-	return db.query(`INSERT INTO sessions (user_id, token) VALUES ($1,$2)`, [id, token]);
+function createSessionDB(body:CreateSession) {
+	return prisma.session.create({data:body})
 }
 function getUserByEmailDB(email:string) {
-	return db.query(`SELECT * FROM users WHERE email=$1;`, [email]);
+	return prisma.user.findMany({where:{email}})
 }
 function deleteExpiredSessionDB(id:number, token:string) {
-	return db.query(`DELETE FROM sessions WHERE user_id=$1 AND token !=$2 ;`, [Number(id), token]);
+	return prisma.session.deleteMany({
+		where:{
+			AND:[
+				{user_id: id},
+				{token: token}
+			]
+		}
+	})
 }
 function userLoggedDB(id:number, token:string) {
-	return db.query(`SELECT * FROM sessions WHERE user_id=$1 AND token=$2`, [id, token]);
+	return prisma.session.findMany({
+		where:{
+			AND:[
+				{user_id: id},
+				{token: token}
+			]
+		}
+	})
 }
 /* function updatePostDB(body) {
 	const { description, id, userId } = body;
