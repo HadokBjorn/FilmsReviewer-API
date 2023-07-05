@@ -10,7 +10,7 @@ export default function errorHandler(error:Error, req:Request, res:Response, nex
   }
 
   if (error.type === "NotFoundError") {
-    return res.status(httpStatus.CONFLICT).send(error.message);
+    return res.status(httpStatus.NOT_FOUND).send(error.message);
   }
   if (error.type === "UnauthorizedError") {
     return res.status(httpStatus.UNAUTHORIZED).send(error.message);

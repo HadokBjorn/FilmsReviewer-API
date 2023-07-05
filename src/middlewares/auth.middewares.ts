@@ -25,7 +25,7 @@ export async function authorization(req:Request, res:Response, next:NextFunction
 
         const user = await userRepositories.userLoggedDB(Number(id), token);
 
-        if (user.rowCount === 0) throw errorCase.unauthorizedError("Token expirado ou inválido.");
+        if (user.length===0) throw errorCase.unauthorizedError("Token expirado ou inválido.");
         
         res.locals.user = userInfo;
         next();

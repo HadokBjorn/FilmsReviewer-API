@@ -2,37 +2,37 @@ import moviesRepository from "@/repositories/movies.repositories";
 import httpStatus from "http-status";
 import { Request, Response } from "express";
 import errorCase from "@/errors/errors";
-import { Movie } from "@/types/users.types";
+import { Movie } from "@prisma/client";
 import { convertDate } from "@/services/movies.services";
+
+type CreateMovie = Omit<Movie, "id">
 
 async function createMovie(req: Request, res:Response) {
 	const userId:number = res.locals.user.id;
-	const body = req.body as Movie;
+	const body = req.body as CreateMovie;
 	body.date = convertDate(req.body.date)
-	body.userId = userId;
+	body.user_id = userId;
 	try{
 		await moviesRepository.createMovieDB(body)
-		res.sendStatus(httpStatus.CREATED)
+		res.sendStatus(httpStatus.OK)
 	}catch (error) {
-		if (error.code === '23505' && error.constraint === 'movies_title_key') return res.status(httpStatus.CONFLICT).send('O título do filme já existe.');
+		throw errorCase.conflictError("Movie")
 	}
-
 }
 
 async function getMovies(req: Request, res:Response) {
 	const movies = await moviesRepository.getUserMoviesDB();
-	res.status(httpStatus.OK).send(movies.rows);
+	res.status(httpStatus.OK).send(movies);
 }
 
 async function deleteMovie(req: Request, res:Response) {
 	const { id } = req.params;
 	const userId = res.locals.user.id;
-	try {
-		await moviesRepository.deleteMovieDB( Number(id), userId );
-		res.sendStatus(httpStatus.OK);
-	} catch (err) {
-		res.status(500).send(err.message);
-	}
+	const movieDeleted = await moviesRepository.deleteMovieDB( Number(id), userId );
+
+	if(movieDeleted.count === 0) throw errorCase.notFoundError("Movie deletion failed as it")
+	res.status(httpStatus.OK).send("Movie was deleted");
+	
 }
 
 const movieControllers = {
