@@ -266,7 +266,9 @@ INSERT INTO public.movies VALUES (1, 1, 'Click', 'Um arquiteto casado e com filh
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJTdXdlaWthaSIsImlhdCI6MTY4ODQxODY1OSwiZXhwIjoxNjg4NDIyMjU5fQ.uLwnRoLQ9fUkAXCiLIZSTIKbMzhevJkazjXRe6WNZAQ', 1);
+INSERT INTO public.sessions VALUES (2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJTdXdlaWthaSIsImlhdCI6MTY4ODQyNTY3OCwiZXhwIjoxNjg4NDI5Mjc4fQ.RgC0WOO7pE16BKtty5aZXbZfRU9q50RsrtcqklrY1BM', 1);
+INSERT INTO public.sessions VALUES (3, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJTdXdlaWthaSIsImlhdCI6MTY4ODUxNzkwNSwiZXhwIjoxNjg4NTIxNTA1fQ.JBQMR5gsoX32j73pcph4nBDF-lN0dtrl79StOlPiMo8', 1);
+INSERT INTO public.sessions VALUES (4, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJTdXdlaWthaSIsImlhdCI6MTY4ODY4MDgwOCwiZXhwIjoxNjg4Njg0NDA4fQ.ay7ny548GMWlfHKYkPRzleWugH6v_-5JVXEhAHOHvzU', 1);
 
 
 --
@@ -287,7 +289,7 @@ SELECT pg_catalog.setval('public.comments_id_seq', 1, false);
 -- Name: movies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.movies_id_seq', 1, true);
+SELECT pg_catalog.setval('public.movies_id_seq', 23, true);
 
 
 --
@@ -301,14 +303,14 @@ SELECT pg_catalog.setval('public.ratings_id_seq', 1, false);
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 1, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 4, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 3, true);
 
 
 --

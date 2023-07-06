@@ -21,8 +21,15 @@ async function createMovie(req: Request, res:Response) {
 }
 
 async function getMovies(req: Request, res:Response) {
-	const movies = await moviesRepository.getUserMoviesDB();
+	const movies = await moviesRepository.getMoviesDB();
 	res.status(httpStatus.OK).send(movies);
+}
+
+async function getOneMovie(req: Request, res:Response) {
+	const { id } = req.params;
+	const movie = await moviesRepository.getOneMovieDB(Number(id));
+	if(!movie) throw errorCase.notFoundError("Movie")
+	res.status(httpStatus.OK).send(movie);
 }
 
 async function deleteMovie(req: Request, res:Response) {
@@ -32,12 +39,12 @@ async function deleteMovie(req: Request, res:Response) {
 
 	if(movieDeleted.count === 0) throw errorCase.notFoundError("Movie deletion failed as it")
 	res.status(httpStatus.OK).send("Movie was deleted");
-	
 }
 
 const movieControllers = {
 	createMovie,
 	getMovies,
+	getOneMovie,
 	deleteMovie,
 };
 export default movieControllers;

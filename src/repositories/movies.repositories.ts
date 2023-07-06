@@ -10,8 +10,12 @@ function createMovieDB(body:CreateMovie) {
     })
 }
 
-function getUserMoviesDB(){
+function getMoviesDB(){
     return prisma.movie.findMany()
+}
+
+function getOneMovieDB(id: number){
+    return prisma.movie.findUnique({where:{id}})
 }
 
 function deleteMovieDB(id:number, userId:number) {
@@ -27,7 +31,8 @@ function deleteMovieDB(id:number, userId:number) {
 
 const moviesRepository = {
     createMovieDB,
-    getUserMoviesDB,
+    getMoviesDB,
+    getOneMovieDB,
     deleteMovieDB,
 }
 

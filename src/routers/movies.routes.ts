@@ -8,6 +8,7 @@ const movieRouters = Router();
 
 movieRouters.post("/movies", validateSchema(movieSchema), authorization, movieControllers.createMovie)
 movieRouters.get("/movies", movieControllers.getMovies)
+movieRouters.get("/movies/:id", authorization, movieControllers.getOneMovie)
 movieRouters.delete("/movies/:id", authorization, movieControllers.deleteMovie)
 
 export default movieRouters;
