@@ -36,16 +36,6 @@ function userLoggedDB(id:number, token:string) {
 		}
 	})
 }
-/* function updatePostDB(body) {
-	const { description, id, userId } = body;
-	return db.query(
-		`
-		UPDATE posts SET description=$1
-		WHERE id=$2 AND user_id=$3;
-	`,
-		[description, Number(id), Number(userId)]
-	);
-} */
 
 
 const userRepositories = {
