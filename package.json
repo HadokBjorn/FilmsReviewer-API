@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && tsc-alias",
+    "prebuild": "rm -rf dist",
+    "build": "tsc --project tsconfig.build.json && tscpaths -p tsconfig.build.json -s ./src -o ./dist",
     "migrate:dev": "prisma migrate dev",
     "migrate:prod": "prisma migrate deploy",
     "seed": "prisma db seed",
-    "dev": "nodemon src/index.ts",
-    "start": "npm run build && npm run migrate:prod && npm run seed && node dist/src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/index.ts'",
+    "start": "npm run prebuild && npm run build && npm run migrate:prod && npm run seed && node dist/index.js",
     "test": "jest"
   },
   "keywords": [],
@@ -30,7 +31,9 @@
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.7",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.6"
+    "tscpaths": "^0.0.9",
+    "typescript": "^5.1.6",
+    "typescript-transform-paths": "^3.4.6"
   },
   "dependencies": {
     "@prisma/client": "^4.16.2",
