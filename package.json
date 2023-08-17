@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "tsc --project tsconfig.build.json && tscpaths -p tsconfig.build.json -s ./src -o ./dist",
+    "build": "npm run prebuild && tsc --project tsconfig.build.json && tscpaths -p tsconfig.build.json -s ./src -o ./dist",
     "migrate:dev": "prisma migrate dev",
     "migrate:prod": "prisma migrate deploy",
     "seed": "prisma db seed",
     "dev": "cross-env NODE_ENV=development nodemon 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/index.ts'",
-    "start": "npm run prebuild && npm run build && npm run migrate:prod && npm run seed && node dist/index.js",
+    "start": "npm run migrate:prod && npm run seed && node dist/index.js",
     "test": "jest"
   },
   "keywords": [],
